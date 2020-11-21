@@ -1,5 +1,6 @@
 package com.filbertfilbert.uts;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -91,7 +92,16 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add,container,false);
+        View view;
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+
+        // Inflate the appropriate layout based on the screen orientation.
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            view = inflater.inflate(R.layout.fragment_add, container, false);
+        }
+        else { // orientation == Configuration.ORIENTATION_LANDSCAPE
+            view = inflater.inflate(R.layout.fragment_add_land, container, false);
+        }
         txtnamaWahana = view.findViewById(R.id.input_namaWahana);
         txtalamatWahana=view.findViewById(R.id.input_alamatWahana);
         txtratingWahana =view.findViewById(R.id.input_ratingWahana);
@@ -99,8 +109,6 @@ public class AddFragment extends Fragment {
 
         btnAdd = view.findViewById(R.id.btn_update);
         btnCancel=view.findViewById(R.id.btn_cancel);
-
-
         return view;
     }
 
@@ -137,4 +145,5 @@ public class AddFragment extends Fragment {
         AddUser add = new AddUser();
         add.execute();
     }
+
 }

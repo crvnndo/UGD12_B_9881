@@ -76,7 +76,7 @@ public class WahanaRecyclerViewAdapter  extends RecyclerView.Adapter<WahanaRecyc
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = wahanaListFiltered;
-                return filterResults;
+                    return filterResults;
             }
 
             @Override

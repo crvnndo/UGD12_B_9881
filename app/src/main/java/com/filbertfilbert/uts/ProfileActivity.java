@@ -9,10 +9,8 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnHome, btnCamera,btnGallery,btnLogout;
     String userID,currentPhotoPath;
     ImageView fotoProfil;
-    StorageReference storageReference,profileRef;
+    StorageReference storageReference;
 
 
 
@@ -80,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         fstore= FirebaseFirestore.getInstance();
         userID=fauth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
+
         StorageReference profileRef = storageReference.child("users/"+fauth.getCurrentUser().getUid()+"profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -93,11 +92,16 @@ public class ProfileActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                txtNamaUser.setText(documentSnapshot.getString("Nama"));
-                txtAlamatUser.setText(documentSnapshot.getString("Alamat"));
-                txtEmailUser.setText(documentSnapshot.getString("Email"));
-                txtNomorTelpUser.setText(documentSnapshot.getString("Nomor Telefon"));
-            }
+                if (e!=null){
+                    Log.d("TAG","Error:"+e.getMessage());
+                }else{
+                    txtNamaUser.setText(documentSnapshot.getString("Nama"));
+                    txtAlamatUser.setText(documentSnapshot.getString("Alamat"));
+                    txtEmailUser.setText(documentSnapshot.getString("Email"));
+                    txtNomorTelpUser.setText(documentSnapshot.getString("Nomor Telefon"));
+                }
+
+        }
         });
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +188,27 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.filbertfilbert.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+            }
+        }
+    }
     private String getFileExt(Uri contentUri) {
         ContentResolver c = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -209,27 +234,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.filbertfilbert.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-            }
-        }
-    }
 
     private void uploadImageToFirebase(Uri imageUri) {
         final StorageReference fileRef = storageReference.child("users/"+fauth.getCurrentUser().getUid()+"profile.jpg");

@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -22,6 +24,24 @@ public class AdminActivity extends AppCompatActivity {
     SwipeRefreshLayout refreshLayout;
     SearchView searchView;
     WahanaRecyclerViewAdapter adapter;
+    private FrameLayout frameLayout;
+
+    /**
+     * Clear any existing layout, add the current fragment
+     * to the back stack, and load the new fragment.
+     * @param fragment fragment to load
+     */
+    public void loadFragment(Fragment fragment) {
+        // Clear any existing layout.
+        frameLayout.removeAllViews();
+
+        // Load the new fragment to the layout.
+        getFragmentManager().beginTransaction()
+                .addToBackStack(null) // Go to the previous fragment when clicking the back button.
+                .replace(R.id.admin_layout, fragment)
+                .commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
