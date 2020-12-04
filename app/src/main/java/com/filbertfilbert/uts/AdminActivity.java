@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +14,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.filbertfilbert.uts.UnitTest.LoginActivity;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class AdminActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent cancelIntent = new Intent(AdminActivity.this,LoginActivity.class);
+               Intent cancelIntent = new Intent(AdminActivity.this, LoginActivity.class);
                startActivity(cancelIntent);
             }
         });

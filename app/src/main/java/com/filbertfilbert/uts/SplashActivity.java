@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.filbertfilbert.uts.UnitTest.LoginActivity;
+
 import gr.net.maroulis.library.EasySplashScreen;
 
 public class SplashActivity extends AppCompatActivity {
