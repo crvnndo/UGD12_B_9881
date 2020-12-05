@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:966595859856:android:3a7d4e52e9eacc13fb4f15",
         "android_client_info": {
-          "package_name": "com.filbertfilbert.uts"
+          "package_name": "com.tubes.uts"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "966595859856-3lii0je2361nanhgl1v6mhmvhtm2tqgn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.filbertfilbert.uts",
+            "package_name": "com.tubes.uts",
             "certificate_hash": "560c958d372925da54f21dd13b6a6e7be321d1a8"
           }
         },

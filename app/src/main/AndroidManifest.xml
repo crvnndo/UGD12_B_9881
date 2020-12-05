@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.filbertfilbert.uts">
+    package="com.tubes.uts">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,13 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FindMeActivity"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".UnitTest.LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.tubes.uts.FindMeActivity"></activity>
+        <activity android:name="com.tubes.uts.ProfileActivity" />
+        <activity android:name="com.tubes.uts.RegisterActivity" />
+        <activity android:name="com.tubes.uts.AdminActivity" />
+        <activity android:name="com.tubes.uts.UnitTest.LoginActivity" />
+        <activity android:name="com.tubes.uts.MainActivity" />
+        <activity android:name="com.tubes.uts.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.filbertfilbert.android.fileprovider"
+            android:authorities="com.tubes.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
